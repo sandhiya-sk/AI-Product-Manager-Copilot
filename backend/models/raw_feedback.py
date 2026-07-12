@@ -14,8 +14,9 @@ from sqlalchemy import (
     String,
     Text,
     CheckConstraint,
+    TIMESTAMP,
 )
-from sqlalchemy.dialects.postgresql import ARRAY, JSONB, TIMESTAMPTZ, UUID
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB, UUID
 from sqlalchemy.orm import relationship
 
 from database.db import db
@@ -113,7 +114,7 @@ class RawFeedback(db.Model):
     # Ingestion Metadata
     # ------------------------------------------------------------------
     upload_timestamp = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
     )
@@ -131,18 +132,18 @@ class RawFeedback(db.Model):
     # ------------------------------------------------------------------
     processing_status = Column(String(50), nullable=False, default="pending")
     processing_error = Column(Text, nullable=True)
-    processed_at = Column(TIMESTAMPTZ, nullable=True)
+    processed_at = Column(TIMESTAMP(timezone=True), nullable=True)
 
     # ------------------------------------------------------------------
     # Audit Timestamps
     # ------------------------------------------------------------------
     created_at = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
     )
     updated_at = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
         onupdate=lambda: datetime.now(timezone.utc),
