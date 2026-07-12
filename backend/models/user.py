@@ -6,8 +6,8 @@ Mirrors schema.md: Table 1 — users
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import Boolean, Column, String, Text
-from sqlalchemy.dialects.postgresql import TIMESTAMPTZ, UUID
+from sqlalchemy import Boolean, Column, String, Text, TIMESTAMP
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
 from database.db import db
@@ -53,17 +53,17 @@ class User(db.Model):
     # Audit timestamps (UTC)
     # ------------------------------------------------------------------
     created_at = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
     )
     updated_at = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
         onupdate=lambda: datetime.now(timezone.utc),
     )
-    last_login_at = Column(TIMESTAMPTZ, nullable=True)
+    last_login_at = Column(TIMESTAMP(timezone=True), nullable=True)
 
     # ------------------------------------------------------------------
     # Relationships

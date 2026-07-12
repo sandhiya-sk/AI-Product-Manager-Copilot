@@ -1,0 +1,7 @@
+subject,description,priority,category,tags,sentiment_self_reported
+Slow dashboard loading,The main dashboard screen takes 15 seconds to fetch data. Please optimize database queries.,High,Improvement,"performance,dashboard",Negative
+Cannot upload profile picture,Clicking the upload avatar button throws a 500 error on mobile devices.,High,Bug,"mobile,profile,upload",Negative
+Add dark mode toggle,A dark theme mode would improve accessibility and reduce eye strain.,Medium,Feature Request,"accessibility,ui,theme",Positive
+App crashes on logout,Every time I log out from the mobile app it closes unexpectedly.,Critical,Bug,"crash,mobile,logout",Negative
+Great search speed,The full-text search feature is extremely fast and returns highly relevant results.,Low,Improvement,"search,performance",Positive
+Slow dashboard loading,The loading speed of the dashboard is very slow and lags.,High,Improvement,"performance,dashboard",Negative

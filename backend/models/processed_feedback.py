@@ -14,8 +14,9 @@ from sqlalchemy import (
     String,
     Text,
     CheckConstraint,
+    TIMESTAMP,
 )
-from sqlalchemy.dialects.postgresql import ARRAY, JSONB, TIMESTAMPTZ, TSVECTOR, UUID
+from sqlalchemy.dialects.postgresql import ARRAY, JSONB, TSVECTOR, UUID
 from sqlalchemy.orm import relationship
 
 from database.db import db
@@ -149,17 +150,17 @@ class ProcessedFeedback(db.Model):
     # Timestamps
     # ------------------------------------------------------------------
     processing_timestamp = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
     )
     created_at = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
     )
     updated_at = Column(
-        TIMESTAMPTZ,
+        TIMESTAMP(timezone=True),
         nullable=False,
         default=lambda: datetime.now(timezone.utc),
         onupdate=lambda: datetime.now(timezone.utc),
@@ -169,7 +170,7 @@ class ProcessedFeedback(db.Model):
     # Module 4 Handoff Flags
     # ------------------------------------------------------------------
     ready_for_classification = Column(Boolean, nullable=False, default=True)
-    classified_at = Column(TIMESTAMPTZ, nullable=True)
+    classified_at = Column(TIMESTAMP(timezone=True), nullable=True)
 
     # ------------------------------------------------------------------
     # Relationships

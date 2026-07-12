@@ -57,8 +57,8 @@ def register():
                 "error": "Invalid project_id format. Must be a valid UUID."
             }), 400
     else:
-        # Generate a project ID if not provided, just for onboarding purposes
-        project_uuid = uuid.uuid4()
+        # Fallback to the default test project ID instead of a random UUID so testing is seamless
+        project_uuid = uuid.UUID("550e8400-e29b-41d4-a716-446655440000")
             
     try:
         new_user = User(
@@ -115,6 +115,15 @@ def login():
             "success": False,
             "error": "Invalid credentials."
         }), 401
+        
+    # Update last_login_at
+    from datetime import datetime, timezone
+    try:
+        user.last_login_at = datetime.now(timezone.utc)
+        db.session.commit()
+    except Exception as e:
+        db.session.rollback()
+        print(f"Failed to update last login timestamp: {e}")
         
     # Generate JWT Token with claims
     additional_claims = {

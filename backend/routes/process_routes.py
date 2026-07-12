@@ -4,7 +4,7 @@ routes/process_routes.py — Flask Data Processing Pipeline endpoints
 
 import uuid
 import threading
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required, get_jwt
 
 from database.db import db
@@ -18,7 +18,7 @@ process_bp = Blueprint("process_bp", __name__)
 jobs_lock = threading.Lock()
 jobs_db = {}
 
-def background_processing_task(job_id: str, project_id: str):
+def background_processing_task(app, job_id: str, project_id: str):
     """
     Run pipeline processing in a background thread and update job status.
     """
@@ -26,17 +26,18 @@ def background_processing_task(job_id: str, project_id: str):
         jobs_db[job_id]["status"] = "running"
         
     try:
-        pipeline = ProcessingPipeline()
-        stats = pipeline.run(project_id=project_id)
-        
-        with jobs_lock:
-            jobs_db[job_id].update({
-                "status": "completed",
-                "processed_count": stats["processed"],
-                "duplicate_count": stats["duplicates"],
-                "failed_count": stats["failed"],
-                "completed_at": str(uuid.uuid4())  # dummy timestamp surrogate
-            })
+        with app.app_context():
+            pipeline = ProcessingPipeline()
+            stats = pipeline.run(project_id=project_id)
+            
+            with jobs_lock:
+                jobs_db[job_id].update({
+                    "status": "completed",
+                    "processed_count": stats["processed"],
+                    "duplicate_count": stats["duplicates"],
+                    "failed_count": stats["failed"],
+                    "completed_at": str(uuid.uuid4())  # dummy timestamp surrogate
+                })
     except Exception as e:
         with jobs_lock:
             jobs_db[job_id].update({
@@ -96,9 +97,10 @@ def run_pipeline():
             "error": None
         }
         
+    app = current_app._get_current_object()
     thread = threading.Thread(
         target=background_processing_task,
-        args=(job_id, project_id)
+        args=(app, job_id, project_id)
     )
     thread.daemon = True
     thread.start()
