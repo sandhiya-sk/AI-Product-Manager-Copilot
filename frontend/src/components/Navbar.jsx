@@ -39,6 +39,9 @@ const Navbar = () => {
             <Link to="/status" className={`navbar-link-item ${isActive('/status')}`}>
               🕵️ Processed Status
             </Link>
+            <Link to="/classify" className={`navbar-link-item ${isActive('/classify')}`}>
+              🧠 AI Classify
+            </Link>
           </>
         )}
         <Link to="/upload/feedback" className={`navbar-link-item ${isActive('/upload/feedback')}`}>

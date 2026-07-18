@@ -12,6 +12,7 @@ from database.db import db
 from routes.auth_routes import auth_bp
 from routes.ingest_routes import ingest_bp
 from routes.process_routes import process_bp
+from routes.classify_routes import classify_bp
 
 def create_app(config_class=None):
     app = Flask(__name__)
@@ -34,6 +35,7 @@ def create_app(config_class=None):
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(ingest_bp, url_prefix="/api/ingest")
     app.register_blueprint(process_bp, url_prefix="/api/process")
+    app.register_blueprint(classify_bp, url_prefix="/api/classify")
     
     # Global Error Handlers
     @app.errorhandler(400)

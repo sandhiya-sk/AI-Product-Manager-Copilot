@@ -11,6 +11,7 @@ import DashboardPage from './pages/DashboardPage';
 import UploadCSVPage from './pages/UploadCSVPage';
 import FeedbackFormPage from './pages/FeedbackFormPage';
 import StatusPage from './pages/StatusPage';
+import ClassificationPage from './pages/ClassificationPage';
 
 function App() {
   return (
@@ -46,6 +47,14 @@ function App() {
                 element={
                   <ProtectedRoute allowedRoles={['product_manager']}>
                     <StatusPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/classify" 
+                element={
+                  <ProtectedRoute allowedRoles={['product_manager']}>
+                    <ClassificationPage />
                   </ProtectedRoute>
                 } 
               />
