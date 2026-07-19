@@ -21,25 +21,20 @@ def run_migration():
         
     print(f"Connecting to database: {db_url.split('@')[-1]}")
     
-    # Read sql script
+    # Migration scripts to run in sequence
     migration_dir = os.path.dirname(os.path.abspath(__file__))
-    sql_file_path = os.path.join(migration_dir, "migrations", "init_schema.sql")
+    migration_files = ["init_schema.sql", "add_classified_feedback.sql"]
     
-    if not os.path.exists(sql_file_path):
-        print(f"Migration file not found at: {sql_file_path}")
-        return False
-        
-    with open(sql_file_path, "r", encoding="utf-8") as f:
-        sql_content = f.read()
-        
+    # Verify all migration files exist before starting
+    for filename in migration_files:
+        path = os.path.join(migration_dir, "migrations", filename)
+        if not os.path.exists(path):
+            print(f"Migration file not found at: {path}")
+            return False
+            
     # Connect and run
     try:
         # Connect to postgres server first to ensure DB exists, if not, create it
-        # Parse params from URL
-        # For simplicity, we directly connect to the target database. If database does not exist,
-        # we connect to default database 'postgres' first and create it.
-        
-        # Connect to default postgres to check if target db exists
         db_user = os.getenv("DB_USER", "postgres")
         db_pass = os.getenv("DB_PASSWORD", "9699")
         db_host = os.getenv("DB_HOST", "localhost")
@@ -74,11 +69,13 @@ def run_migration():
         conn.autocommit = True
         cur = conn.cursor()
         
-        print("Running SQL script initialization...")
-        # Execute the entire script. Psycopg2 cursor.execute can run multiple statements separated by semicolons
-        cur.execute(sql_content)
-        print("Migration executed successfully.")
-        
+        for filename in migration_files:
+            sql_file_path = os.path.join(migration_dir, "migrations", filename)
+            print(f"Running SQL script initialization: {filename}...")
+            with open(sql_file_path, "r", encoding="utf-8") as f:
+                sql_content = f.read()
+            cur.execute(sql_content)
+            print(f"Migration {filename} executed successfully.")
         cur.close()
         conn.close()
         return True
