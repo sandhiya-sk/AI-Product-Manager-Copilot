@@ -173,9 +173,7 @@ const ClassificationPage = () => {
       <div className="dashboard-header">
         <div className="header-meta">
           <h1>🧠 AI Classification & Theme Extraction</h1>
-          <p className="project-token">
-            <strong>Module 4</strong> — Powered by Gemini AI
-          </p>
+
         </div>
         <button
           onClick={handleRunClassification}
