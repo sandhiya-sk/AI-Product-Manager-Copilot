@@ -1163,3 +1163,466 @@ body {
     min-width: 100px;
   }
 }
+
+
+/* ═══════════════════════════════════════════════════════════
+   MODULE 5 — FEATURE REQUEST AGGREGATION STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+/* Cluster Label */
+.agg-cluster-label {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Frequency Cell */
+.agg-frequency-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 130px;
+}
+
+.agg-frequency-bar-container {
+  flex: 1;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 5px;
+  overflow: hidden;
+  min-width: 60px;
+}
+
+.agg-frequency-bar {
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--accent-primary), #06b6d4);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 4px;
+}
+
+.agg-frequency-value {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--accent-primary);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* Importance Badge */
+.agg-importance-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+/* Users Cell */
+.agg-users-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.agg-users-icon {
+  font-size: 1.1rem;
+}
+
+/* Trend Badge */
+.agg-trend-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.agg-trend-label {
+  text-transform: capitalize;
+  font-size: 0.82rem;
+}
+
+/* ─── Expanded Detail Grid ────────────────────────── */
+.agg-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--glass-border);
+  animation: fadeIn 0.25s ease;
+}
+
+/* Mini Metrics inside expanded row */
+.agg-metrics-mini {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.agg-metric-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--glass-border);
+}
+
+.agg-metric-item .agg-metric-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.agg-metric-item .agg-metric-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.15rem;
+}
+
+/* ─── Trend Timeline (in expanded row) ────────────── */
+.agg-trend-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.agg-trend-week {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.agg-week-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  min-width: 70px;
+  font-weight: 500;
+}
+
+.agg-week-bar-container {
+  flex: 1;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.agg-week-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+  min-width: 3px;
+}
+
+.agg-week-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  min-width: 24px;
+  text-align: right;
+}
+
+.agg-growth-rate {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* ─── Sample Feedback Cards ───────────────────────── */
+.agg-sample-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.agg-sample-card {
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--glass-border);
+  border-left: 3px solid var(--accent-primary);
+  transition: var(--transition-smooth);
+}
+
+.agg-sample-card:hover {
+  border-color: var(--glass-hover-border);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.agg-sample-subject {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.agg-sample-summary {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 0.4rem;
+}
+
+.agg-sample-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.agg-sample-weight {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.agg-sample-loading {
+  padding: 1rem;
+  text-align: center;
+}
+
+/* ─── Top Clusters List (Analytics) ───────────────── */
+.agg-top-clusters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.agg-top-cluster-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--border-radius-sm);
+  border-left: 3px solid var(--accent-primary);
+  transition: var(--transition-smooth);
+}
+
+.agg-top-cluster-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateX(2px);
+}
+
+.agg-top-rank {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--accent-primary);
+  min-width: 32px;
+}
+
+.agg-top-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 180px;
+}
+
+.agg-top-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.agg-top-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.2rem;
+  font-size: 0.75rem;
+}
+
+.agg-top-users {
+  color: var(--text-secondary);
+}
+
+.agg-top-freq-bar {
+  flex: 1;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.agg-top-freq-fill {
+  height: 100%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  transition: width 0.6s ease;
+  min-width: 4px;
+}
+
+.agg-top-freq-value {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ─── Trend Radar Section ─────────────────────────── */
+.agg-trends-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.agg-trend-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.agg-trend-group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--glass-border);
+}
+
+.agg-trend-group-icon {
+  font-size: 1.5rem;
+}
+
+.agg-trend-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.agg-trend-card {
+  padding: 1.25rem;
+  border-radius: var(--border-radius-md);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.agg-trend-card:hover {
+  border-color: var(--glass-hover-border);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.agg-trend-rising {
+  border-left: 3px solid #22c55e;
+}
+
+.agg-trend-stable {
+  border-left: 3px solid #94a3b8;
+}
+
+.agg-trend-declining {
+  border-left: 3px solid #ef4444;
+}
+
+.agg-trend-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.agg-trend-card-label {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+
+.agg-trend-card-badge {
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.agg-trend-card-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.agg-trend-metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--glass-border);
+}
+
+.agg-trend-metric-value {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+}
+
+.agg-trend-metric-label {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-top: 0.15rem;
+}
+
+.agg-trend-card-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.agg-trend-growth {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.agg-trend-empty {
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+  background: var(--glass-bg);
+  border-radius: var(--border-radius-md);
+  border: 1px dashed var(--glass-border);
+}
+
+/* ─── Module 5 Responsive ─────────────────────────── */
+@media (max-width: 768px) {
+  .agg-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .agg-trend-cards {
+    grid-template-columns: 1fr;
+  }
+  .agg-trend-card-metrics {
+    grid-template-columns: 1fr;
+  }
+  .agg-metrics-mini {
+    grid-template-columns: 1fr;
+  }
+  .agg-top-cluster-item {
+    flex-wrap: wrap;
+  }
+  .agg-top-info {
+    min-width: auto;
+  }
+}
