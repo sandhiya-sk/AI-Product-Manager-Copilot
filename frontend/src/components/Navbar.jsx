@@ -42,6 +42,9 @@ const Navbar = () => {
             <Link to="/classify" className={`navbar-link-item ${isActive('/classify')}`}>
               🧠 AI Classify
             </Link>
+            <Link to="/aggregate" className={`navbar-link-item ${isActive('/aggregate')}`}>
+              🔗 Feature Clusters
+            </Link>
           </>
         )}
         <Link to="/upload/feedback" className={`navbar-link-item ${isActive('/upload/feedback')}`}>

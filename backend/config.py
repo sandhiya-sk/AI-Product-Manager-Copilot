@@ -65,6 +65,14 @@ class Config:
     PIPELINE_VERSION = os.getenv("PIPELINE_VERSION", "1.0.0")
 
     # ------------------------------------------------------------------
+    # Module 5 Feature Request Aggregation
+    # ------------------------------------------------------------------
+    AGGREGATION_CLUSTER_THRESHOLD = int(
+        os.getenv("AGGREGATION_CLUSTER_THRESHOLD", 2)
+    )
+    AGGREGATION_PROMPT_VERSION = os.getenv("AGGREGATION_PROMPT_VERSION", "1.0.0")
+
+    # ------------------------------------------------------------------
     # Logging
     # ------------------------------------------------------------------
     LOG_LEVEL = os.getenv("LOG_LEVEL", "DEBUG")

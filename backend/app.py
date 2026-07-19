@@ -13,6 +13,7 @@ from routes.auth_routes import auth_bp
 from routes.ingest_routes import ingest_bp
 from routes.process_routes import process_bp
 from routes.classify_routes import classify_bp
+from routes.aggregate_routes import aggregate_bp
 
 def create_app(config_class=None):
     app = Flask(__name__)
@@ -36,6 +37,7 @@ def create_app(config_class=None):
     app.register_blueprint(ingest_bp, url_prefix="/api/ingest")
     app.register_blueprint(process_bp, url_prefix="/api/process")
     app.register_blueprint(classify_bp, url_prefix="/api/classify")
+    app.register_blueprint(aggregate_bp, url_prefix="/api/aggregate")
     
     # Global Error Handlers
     @app.errorhandler(400)
