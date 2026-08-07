@@ -26,8 +26,7 @@ def run_migration():
     migration_files = [
         "init_schema.sql", 
         "add_classified_feedback.sql", 
-        "add_aggregated_features.sql", 
-        "add_rag_tables.sql"
+        "add_aggregated_features.sql"
     ]
     
     # Verify all migration files exist before starting

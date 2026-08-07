@@ -61,7 +61,7 @@ def run_classification():
     """
     Trigger the Module 4 classification pipeline.
     Only product managers can run this.
-    Spawns a background thread and returns a job_id for polling.
+    Runs synchronously and returns success.
     """
     claims = get_jwt()
     role = claims.get("role")
@@ -71,6 +71,13 @@ def run_classification():
             "success": False,
             "error": "Forbidden: Only product managers can run the classification pipeline."
         }), 403
+
+    from services.gemini_service import GEMINI_API_KEY
+    if not GEMINI_API_KEY:
+        return jsonify({
+            "success": False,
+            "error": "GEMINI_API_KEY missing"
+        }), 400
 
     data = request.get_json() or {}
     project_id_str = data.get("project_id") or claims.get("project_id")
@@ -97,41 +104,43 @@ def run_classification():
 
     if unclassified_count == 0:
         return jsonify({
+            "success": False,
+            "error": "Empty feedback data"
+        }), 400
+
+    try:
+        pipeline = ClassificationPipeline()
+        stats = pipeline.run(project_id=project_id)
+
+        # Fetch newly classified feedback results to return them in 'data'
+        results = ClassifiedFeedback.query.filter_by(
+            project_id=project_id
+        ).order_by(ClassifiedFeedback.classified_at.desc()).limit(stats.get("classified", 0)).all()
+
+        serialized = []
+        for clf in results:
+            clf_dict = clf.to_dict()
+            if clf.processed_feedback:
+                clf_dict["original_subject"] = clf.processed_feedback.original_subject
+                clf_dict["original_description"] = clf.processed_feedback.original_description
+                clf_dict["clean_text"] = clf.processed_feedback.clean_text
+                clf_dict["priority"] = clf.processed_feedback.priority
+            clf_dict["category"] = clf_dict.get("ai_category")
+            clf_dict["confidence"] = clf_dict.get("ai_confidence_score")
+            clf_dict["sentiment"] = clf_dict.get("ai_sentiment")
+            clf_dict["feedback_text"] = clf_dict.get("clean_text") or clf_dict.get("original_description") or ""
+            serialized.append(clf_dict)
+
+        return jsonify({
             "success": True,
-            "data": {
-                "message": "No unclassified feedback records found.",
-                "unclassified_count": 0,
-            }
+            "message": "AI Classification completed successfully",
+            "data": serialized
         }), 200
-
-    # Spawn background task
-    job_id = str(uuid.uuid4())
-    with classify_jobs_lock:
-        classify_jobs_db[job_id] = {
-            "job_id": job_id,
-            "status": "started",
-            "classified_count": 0,
-            "failed_count": 0,
-            "total_fetched": 0,
-            "error": None,
-        }
-
-    app = current_app._get_current_object()
-    thread = threading.Thread(
-        target=background_classification_task,
-        args=(app, job_id, project_id),
-    )
-    thread.daemon = True
-    thread.start()
-
-    return jsonify({
-        "success": True,
-        "data": {
-            "job_id": job_id,
-            "status": "started",
-            "unclassified_count": unclassified_count,
-        }
-    }), 202
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": "Gemini API error: " + str(e)
+        }), 500
 
 
 # ──────────────────────────────────────────────────────────────
@@ -247,6 +256,12 @@ def get_classification_results():
             clf_dict["original_subject"] = clf.processed_feedback.original_subject
             clf_dict["original_description"] = clf.processed_feedback.original_description
             clf_dict["clean_text"] = clf.processed_feedback.clean_text
+            clf_dict["priority"] = clf.processed_feedback.priority
+        # Add alias fields to match frontend expectations
+        clf_dict["category"] = clf_dict.get("ai_category")
+        clf_dict["confidence"] = clf_dict.get("ai_confidence_score")
+        clf_dict["sentiment"] = clf_dict.get("ai_sentiment")
+        clf_dict["feedback_text"] = clf_dict.get("clean_text") or clf_dict.get("original_description") or ""
         serialized.append(clf_dict)
 
     return jsonify({

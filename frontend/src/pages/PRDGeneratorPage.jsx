@@ -73,7 +73,7 @@ const PRDGeneratorPage = () => {
     setSuccessMsg(null);
 
     try {
-      const response = await api.post('/api/rag/generate-prd', {
+      const response = await api.post('/api/prd/generate-prd', {
         feature_name: featureName,
         description: description,
         project_id: user.project_id
@@ -213,7 +213,7 @@ const PRDGeneratorPage = () => {
               disabled={generating}
               style={{ width: '100%', padding: '0.9rem' }}
             >
-              {generating ? "🧠 Retrieval RAG & Generating PRD..." : "✨ Generate AI PRD"}
+              {generating ? "✨ Generating PRD..." : "✨ Generate AI PRD"}
             </button>
           </form>
 

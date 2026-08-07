@@ -14,8 +14,8 @@ import StatusPage from './pages/StatusPage';
 import ClassificationPage from './pages/ClassificationPage';
 import AggregationPage from './pages/AggregationPage';
 import PrioritizationPage from './pages/PrioritizationPage';
-import KnowledgeBasePage from './pages/KnowledgeBasePage';
 import PRDGeneratorPage from './pages/PRDGeneratorPage';
+import AssistantPage from './pages/AssistantPage';
 
 function App() {
   return (
@@ -80,14 +80,6 @@ function App() {
                 }
               />
               <Route
-                path="/knowledge-base"
-                element={
-                  <ProtectedRoute allowedRoles={['product_manager']}>
-                    <KnowledgeBasePage />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
                 path="/prd-generator"
                 element={
                   <ProtectedRoute allowedRoles={['product_manager']}>
@@ -95,6 +87,15 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="/assistant"
+                element={
+                  <ProtectedRoute allowedRoles={['product_manager']}>
+                    <AssistantPage />
+                  </ProtectedRoute>
+                }
+              />
+
 
               {/* Protected Combined Routes (PM & Customer) */}
               <Route

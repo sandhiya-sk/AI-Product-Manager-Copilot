@@ -73,14 +73,9 @@ class Config:
     AGGREGATION_PROMPT_VERSION = os.getenv("AGGREGATION_PROMPT_VERSION", "1.0.0")
 
     # ------------------------------------------------------------------
-    # Module 7 RAG / Knowledge Base
+    # Gemini API Key (Module 8 PRD Generation)
     # ------------------------------------------------------------------
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-    GEMINI_EMBEDDING_MODEL = os.getenv("GEMINI_EMBEDDING_MODEL", "models/text-embedding-004")
-    CHROMADB_PERSIST_DIR = os.getenv("CHROMADB_PERSIST_DIR", "./chromadb_data")
-    CHROMADB_COLLECTION_NAME = os.getenv("CHROMADB_COLLECTION_NAME", "feedback_embeddings")
-    RAG_SEARCH_TOP_K = int(os.getenv("RAG_SEARCH_TOP_K", 10))
-    RAG_FALLBACK_EMBEDDING_MODEL = os.getenv("RAG_FALLBACK_EMBEDDING_MODEL", "all-MiniLM-L6-v2")
 
     # ------------------------------------------------------------------
     # Logging
